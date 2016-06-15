@@ -1,0 +1,17 @@
+{
+  "currencyHeader": {
+    "text": "Валюта"
+  },
+  "buyHeader": {
+    "text": "Покупка"
+  },
+  "sellHeader": {
+    "text": "Продажа"
+  },
+  "nbHeader": {
+    "text": "Нацбанк"
+  },
+  "page": {
+    "title": "Курсы валют"
+  }
+}
