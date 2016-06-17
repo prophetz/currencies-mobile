@@ -1,28 +1,27 @@
+var registry = require("./registry");
+var language = require("./language");
+var city = require("./city");
 
-STRINGS = (function() {
-    var lang = tabris.device.get("language").replace(/-.*/, "");
-    try {
-        return require("./lang/" + lang + ".json");
-    } catch (ex) {
-        return require("./lang/en.json");
-    }
-}());
 
 Promise = require("promise");
 require("whatwg-fetch");
-
 var moment = require('moment/min/moment-with-locales.min.js');
-var LOCALE = tabris.device.get("language");
-moment.locale(LOCALE);
+moment.locale(language.getLocale());
 
+
+language.load();
 
 tabris.create("Drawer").append(tabris.create("PageSelector"));
 
+city.checkSelectedCity();
+
+
+
 var page = tabris.create("Page", {
-    title: STRINGS['page'].title,
+    title: language.getString('page', 'title'),
     background: "#F2F2F2",
     topLevel: true
-}).open();
+});
 
 
 drawHeader();
@@ -106,7 +105,18 @@ function createCurrencyPage(currency) {
         topLevel: false
     }).open();
 
+    /*
+    fetch("http://192.168.100.2/currency/"+currency).then(function(response) {
+        console.log(response);
+        var rates = JSON.parse(response._bodyInit);
+        
 
+
+    }).catch(function(error) {
+        console.log('request failed:', error)
+    })
+
+*/
 }
 
 function loadItems() {
@@ -114,7 +124,7 @@ function loadItems() {
         refreshIndicator: true,
         refreshMessage: "loading..."
     });
-    fetch("http://85.143.217.30/exchange_rate/get").then(function(response) {
+    fetch("http://192.168.100.2/all_currencies").then(function(response) {
         var rates = JSON.parse(response._bodyInit);
         view.set({
             items: rates,
@@ -122,7 +132,7 @@ function loadItems() {
             refreshMessage: "refreshed"
         });
 
-        page.set('title', STRINGS['page'].title + ' - ' + moment().format('LLL'));
+        page.set('title', language.getString('page', 'title') + ' - ' + moment().format('LLL'));
 
     }).catch(function(error) {
         console.log('request failed:', error)
@@ -137,25 +147,25 @@ function drawHeader() {
     }).appendTo(page);
 
     tabris.create("TextView", {
-        text: STRINGS['currencyHeader'].text,
+        text: language.getString('currencyHeader', 'text'),
         layoutData: {left: "5%", right: 0, top: 10},
         font: "18px Roboto, sans-serif"
     }).appendTo(headerCell);
 
     tabris.create("TextView", {
-        text: STRINGS['buyHeader'].text,
+        text: language.getString('buyHeader', 'text'),
         layoutData: {left: "30%", right: 0, top: 10},
         font: "18px Roboto, sans-serif"
     }).appendTo(headerCell);
 
     tabris.create("TextView", {
-        text: STRINGS['sellHeader'].text,
+        text: language.getString('sellHeader', 'text'),
         layoutData: {left: "55%", right: 0, top: 10},
         font: "18px Roboto, sans-serif"
     }).appendTo(headerCell);
 
     tabris.create("TextView", {
-        text: STRINGS['nbHeader'].text,
+        text: language.getString('nbHeader', 'text'),
         layoutData: {left: "80%", right: 0, top: 10},
         font: "18px Roboto, sans-serif"
     }).appendTo(headerCell);
