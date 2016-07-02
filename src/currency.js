@@ -7,8 +7,8 @@ Currency = function () {
 
     var self = this;
     this.page = null;
-    this.view = {};
-    this.header = {};
+    this.view = null;
+    this.header = null;
 
 
     this.load = function () {

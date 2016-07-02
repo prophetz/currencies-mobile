@@ -9,9 +9,15 @@ var City = function () {
     this.selectCityPage = null;
     this.citiesList = null;
 
+
     this.load = function (callback) {
 
         console.log('city.load');
+
+        self.citiesList.set({
+            refreshIndicator: true,
+            refreshMessage: "loading..."
+        });
 
         fetch(registry.get('domain') + "/city/get").then(function (response) {
 
@@ -27,6 +33,11 @@ var City = function () {
             }
 
             callback(items);
+
+            self.citiesList.set({
+                refreshIndicator: false,
+                refreshMessage: "refreshed"
+            });
 
         }).catch(function (error) {
             console.log('request failed:', error)
