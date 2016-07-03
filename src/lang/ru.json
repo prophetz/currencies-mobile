@@ -2,6 +2,12 @@
   "currencyHeader": {
     "text": "Валюта"
   },
+  "bankHeader": {
+    "text": "Банк"
+  },
+  "officeHeader": {
+    "text": "Отделение"
+  },
   "buyHeader": {
     "text": "Покупка"
   },
