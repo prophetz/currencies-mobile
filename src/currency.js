@@ -366,10 +366,10 @@ Currency = function () {
             initializeCell: function (cell) {
 
                 var officeName = tabris.create("TextView", {
-                    layoutData: {left: "5%", top: 11, right: 16},
+                    layoutData: {left: "5%", top: 11, right: "45%"},
                     alignment: "left",
                     font: "18px Roboto, sans-serif",
-                    textColor: "#000"
+                    textColor: "#14509c"
                 }).appendTo(cell);
 
                 var officePhone = tabris.create("TextView", {
